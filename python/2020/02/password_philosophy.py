@@ -60,11 +60,11 @@ def password_philosophy_part_2(l):
   valid_count = 0
   for item in l:
     dash_index = item.index('-')
-    i = int(item[:dash_index])
+    i = int(item[:dash_index]) - 1
     space_index = item.index(' ', dash_index)
-    j = int(item[dash_index + 1:space_index])
+    j = int(item[dash_index + 1:space_index]) - 1
     char = item[space_index + 1]
     password = item[space_index + 4:]
-    if (password[i - 1] == char) ^ (password[j - 1] == char):
+    if (password[i] == char) ^ (password[j] == char):
       valid_count += 1
   return valid_count
