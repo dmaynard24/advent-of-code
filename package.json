@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "jest",
-    "yapf": "yapf -ir --style=\"{indent_width: 2}\" files ."
+    "yapf": "yapf -ir --style=\"{indent_width: 2, column_limit: 120}\" files ."
   },
   "jest": {
     "testRegex": "**/javascript/.*/.*.test.js"

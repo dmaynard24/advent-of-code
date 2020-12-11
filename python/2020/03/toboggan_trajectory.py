@@ -55,7 +55,7 @@ def get_tree_count(tree_map_arr, slope_m, slope_b):
   width = len(tree_map_arr[0])
   count = 0
   row = 0
-  col = 0
+  col =0
   while row < len(tree_map_arr):
     if tree_map_arr[row][col % width] == '#':
       count += 1

@@ -10,7 +10,7 @@
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": ["--style", "{indent_width: 2}"],
+  "python.formatting.yapfArgs": ["--style", "{indent_width: 2, column_limit: 120}"],
   "vscode_custom_css.imports": ["file:///c:/repos/hackerrank/css/synthwave-x-fluoromachine-0.0.12.css", "file:///c:/repos/hackerrank/css/theme-overrides.css"],
   "workbench.colorCustomizations": {
     "scrollbarSlider.background": "#9963ff16",
