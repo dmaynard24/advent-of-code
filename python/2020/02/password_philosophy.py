@@ -65,8 +65,6 @@ def password_philosophy_part_2(l):
     j = int(item[dash_index + 1:space_index])
     char = item[space_index + 1]
     password = item[space_index + 4:]
-    if (password[i - 1] == char
-        and password[j - 1] != char) or (password[i - 1] != char
-                                         and password[j - 1] == char):
+    if (password[i - 1] == char) ^ (password[j - 1] == char):
       valid_count += 1
   return valid_count
