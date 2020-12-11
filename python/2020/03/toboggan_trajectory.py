@@ -65,7 +65,7 @@ def get_tree_count(tree_map_arr, slope_m, slope_b):
 
 
 def toboggan_trajectory(tree_map):
-  tree_map_arr = [list(row) for row in tree_map.split('\n')]
+  tree_map_arr = tree_map.split('\n')
   return get_tree_count(tree_map_arr, 3, 1)
 
 
@@ -85,24 +85,10 @@ def toboggan_trajectory(tree_map):
 
 
 def toboggan_trajectory_part_2(tree_map):
-  tree_map_arr = [list(row) for row in tree_map.split('\n')]
+  tree_map_arr = tree_map.split('\n')
   slopes = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
 
-  total_count_product = 1
+  count_product = 1
   for slope in slopes:
-    total_count_product *= get_tree_count(tree_map_arr, slope[0], slope[1])
-  return total_count_product
-
-
-print(
-    toboggan_trajectory_part_2('''..##.......
-#...#...#..
-.#....#..#.
-..#.#...#.#
-.#...##..#.
-..#.##.....
-.#.#.#....#
-.#........#
-#.##...#...
-#...##....#
-.#..#...#.#'''))
+    count_product *= get_tree_count(tree_map_arr, slope[0], slope[1])
+  return count_product
