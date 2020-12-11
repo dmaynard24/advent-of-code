@@ -1,0 +1,42 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "Solutions to the https://adventofcode.com/ problems.",
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.8.0",
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "yapf": "yapf -ir --style=\"{indent_width: 2}\" files ."
+  },
+  "jest": {
+    "testRegex": "**/javascript/.*/.*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmaynard24/hackerrank.git"
+  },
+  "keywords": [
+    "javascript",
+    "python",
+    "data",
+    "structures",
+    "algorithms",
+    "training",
+    "practice"
+  ],
+  "author": "Dave Maynard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmaynard24/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/dmaynard24/advent-of-code#readme"
+}
