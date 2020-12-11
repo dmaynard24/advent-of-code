@@ -214,18 +214,18 @@ class TestReportRepair(unittest.TestCase):
 1166
 1929'''), 1_019_904)
 
-  def test_report_repair_again(self):
+  def test_report_repair_part_2(self):
     self.assertEqual(
-        report_repair.report_repair_again('''1721
+        report_repair.report_repair_part_2('''1721
 979
 366
 299
 675
 1456'''), 241_861_950)
 
-  def test_report_repair_again_1(self):
+  def test_report_repair_part_2_1(self):
     self.assertEqual(
-        report_repair.report_repair_again('''1384
+        report_repair.report_repair_part_2('''1384
 1396
 1072
 1903

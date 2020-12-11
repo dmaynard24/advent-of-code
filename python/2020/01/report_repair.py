@@ -43,7 +43,7 @@ def report_repair(report):
 # In your expense report, what is the product of the three entries that sum to 2020?
 
 
-def report_repair_again(report):
+def report_repair_part_2(report):
   report = sorted(map(int, report.split('\n')))
 
   cached_nums = {}
