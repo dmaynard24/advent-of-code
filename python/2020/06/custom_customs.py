@@ -81,26 +81,9 @@ def custom_customs(all_answers):
 
 
 def custom_customs_part_2(all_answers):
-  all_answers = re.sub(r'(?<!\n)\n', '', all_answers).split('\n')
-  intersection = set(all_answers[0])
-  for i in range(1, len(all_answers)):
-    intersection.intersection_update(set(all_answers[i]))
-    print(intersection)
-  return len(intersection)
+  all_answers = all_answers.split('\n\n')
 
-
-print(custom_customs_part_2('''abc
-
-a
-b
-c
-
-ab
-ac
-
-a
-a
-a
-a
-
-b'''))
+  count = 0
+  for group in all_answers:
+    count += len(set.intersection(*[set(g) for g in group.split('\n')]))
+  return count
