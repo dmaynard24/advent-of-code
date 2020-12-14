@@ -51,12 +51,12 @@ def handheld_halting(instructions):
       break
     ins = instructions[i]
     operation = ins[:3]
+    executed_indices[i] = True
     if operation == 'acc':
       argument = ins[4:]
       acc += -int(argument[1:]) if argument.startswith('-') else int(argument[1:])
     elif operation == 'jmp':
       argument = ins[4:]
       i -= (int(argument[1:]) + 1) if argument.startswith('-') else -(int(argument[1:]) - 1)
-    executed_indices[i] = True
     i += 1
   return acc
