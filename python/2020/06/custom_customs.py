@@ -44,3 +44,63 @@ import re
 def custom_customs(all_answers):
   all_answers = re.sub(r'(?<!\n)\n', '', all_answers).split('\n')
   return sum([len(set(answers)) for answers in all_answers])
+
+
+# --- Part Two ---
+# As you finish the last group's customs declaration, you notice that you misread one word in the instructions:
+
+# You don't need to identify the questions to which anyone answered "yes"; you need to identify the questions to which everyone answered "yes"!
+
+# Using the same example as above:
+
+# abc
+
+# a
+# b
+# c
+
+# ab
+# ac
+
+# a
+# a
+# a
+# a
+
+# b
+# This list represents answers from five groups:
+
+# In the first group, everyone (all 1 person) answered "yes" to 3 questions: a, b, and c.
+# In the second group, there is no question to which everyone answered "yes".
+# In the third group, everyone answered yes to only 1 question, a. Since some people did not answer "yes" to b or c, they don't count.
+# In the fourth group, everyone answered yes to only 1 question, a.
+# In the fifth group, everyone (all 1 person) answered "yes" to 1 question, b.
+# In this example, the sum of these counts is 3 + 0 + 1 + 1 + 1 = 6.
+
+# For each group, count the number of questions to which everyone answered "yes". What is the sum of those counts?
+
+
+def custom_customs_part_2(all_answers):
+  all_answers = re.sub(r'(?<!\n)\n', '', all_answers).split('\n')
+  intersection = set(all_answers[0])
+  for i in range(1, len(all_answers)):
+    intersection.intersection_update(set(all_answers[i]))
+    print(intersection)
+  return len(intersection)
+
+
+print(custom_customs_part_2('''abc
+
+a
+b
+c
+
+ab
+ac
+
+a
+a
+a
+a
+
+b'''))
