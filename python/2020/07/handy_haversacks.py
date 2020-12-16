@@ -103,7 +103,7 @@ def handy_haversacks_part_2(rules):
   def get_nested_count(color):
     count = 0
     if color in color_contents:
-      for nested_color in color_contents[color].keys():
+      for nested_color in color_contents[color]:
         color_count = color_contents[color][nested_color]
         nested_count = get_nested_count(nested_color)
         count += color_count + (color_count * nested_count)
