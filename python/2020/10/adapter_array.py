@@ -97,10 +97,7 @@ def adapter_array(joltages):
     else:
       break
 
-  current_joltage += 3
-  three_diff_count += 1
-
-  return one_diff_count * three_diff_count
+  return one_diff_count * (three_diff_count + 1)
 
 
 # --- Part Two ---
