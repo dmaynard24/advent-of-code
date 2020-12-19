@@ -62,3 +62,31 @@ def shuttle_search(notes):
       closest_bus_id = int_bus_id
 
   return closest_bus_id * (closest_bus_id - earliest_time % closest_bus_id)
+
+
+def shuttle_search_part_2(bus_ids):
+  bus_ids = bus_ids.split(',')
+
+  bus_ids_minutes = {}
+  largest_bus_id = -sys.maxsize
+  largest_bus_id_minutes = None
+  for i in range(len(bus_ids)):
+    if bus_ids[i] == 'x':
+      continue
+    int_bus_id = int(bus_ids[i])
+    bus_ids_minutes[int_bus_id] = i
+    if int_bus_id > largest_bus_id:
+      largest_bus_id = int_bus_id
+      largest_bus_id_minutes = i
+
+  first_time = largest_bus_id - largest_bus_id_minutes
+  time = first_time
+  while True:
+    found = True
+    for bus_id in bus_ids_minutes:
+      if (time + bus_ids_minutes[bus_id]) % bus_id != 0:
+        found = False
+        break
+    if found:
+      return time
+    time += largest_bus_id
