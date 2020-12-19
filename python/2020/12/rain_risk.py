@@ -35,19 +35,20 @@
 COMPASS_DIRECTIONS = ['N', 'E', 'S', 'W']
 
 
+def move(x, y, compass_direction, distance):
+  if compass_direction == 'N':
+    y += distance
+  elif compass_direction == 'S':
+    y -= distance
+  elif compass_direction == 'E':
+    x += distance
+  elif compass_direction == 'W':
+    x -= distance
+  return x, y
+
+
 def rain_risk(instructions):
   instructions = instructions.split('\n')
-
-  def move(x, y, compass_direction, distance):
-    if compass_direction == 'N':
-      y += value
-    elif compass_direction == 'S':
-      y -= value
-    elif compass_direction == 'E':
-      x += value
-    elif compass_direction == 'W':
-      x -= value
-    return x, y
 
   x = 0
   y = 0
@@ -65,3 +66,54 @@ def rain_risk(instructions):
       x, y = move(x, y, COMPASS_DIRECTIONS[direction_index], value)
 
   return abs(x) + abs(y)
+
+
+# TODO: part 2
+
+
+def rain_risk_part_2(instructions):
+  instructions = instructions.split('\n')
+
+  def rotate_waypoint(x, y, quadrant_index):
+    return [(x, y), (-y, x), (-x, -y), (y, -x)][quadrant_index]
+
+  def get_quadrant_index_from_coords(x, y, quadrant_index):
+    if x > 0 and y > 0:
+      return 0
+    elif x < 0 and y > 0:
+      return 1
+    elif x < 0 and y < 0:
+      return 2
+    elif x > 0 and y < 0:
+      return 3
+    return quadrant_index
+
+  x = 0
+  y = 0
+  waypoint_x = 10
+  waypoint_y = 1
+  quadrant_index = 0
+  for ins in instructions:
+    action = ins[0]
+    value = int(ins[1:])
+    if action == 'N' or action == 'E' or action == 'S' or action == 'W':
+      waypoint_x, waypoint_y = move(waypoint_x, waypoint_y, action, value)
+      quadrant_index = get_quadrant_index_from_coords(waypoint_x, waypoint_y, quadrant_index)
+    elif action == 'L':
+      quadrant_index = (quadrant_index + value // 90) % len(COMPASS_DIRECTIONS)
+      waypoint_x, waypoint_y = rotate_waypoint(waypoint_x, waypoint_y, quadrant_index)
+    elif action == 'R':
+      quadrant_index = (quadrant_index - value // 90) % len(COMPASS_DIRECTIONS)
+      waypoint_x, waypoint_y = rotate_waypoint(waypoint_x, waypoint_y, quadrant_index)
+    elif action == 'F':
+      x += (waypoint_x * value)
+      y += (waypoint_y * value)
+
+  return abs(x) + abs(y)
+
+
+print(rain_risk_part_2('''F10
+N3
+F7
+R90
+F11'''))
