@@ -64,6 +64,9 @@ def shuttle_search(notes):
   return closest_bus_id * (closest_bus_id - earliest_time % closest_bus_id)
 
 
+# TODO: part 2
+
+
 def shuttle_search_part_2(bus_ids):
   bus_ids = bus_ids.split(',')
 
