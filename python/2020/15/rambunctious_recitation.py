@@ -36,13 +36,13 @@
 # Given your starting numbers, what will be the 2020th number spoken?
 
 
-def rambunctious_recitation(starting_nums):
+def rambunctious_recitation(starting_nums, n):
   starting_nums = list(map(int, starting_nums.split(',')))
-  prev_num_indices = {starting_nums[i]: [i + 1] for i in range(len(starting_nums))}
+  prev_num_indices = {starting_nums[i]: {0: i + 1} for i in range(len(starting_nums))}
 
   prev_num = starting_nums[-1]
   j = len(starting_nums) + 1
-  while j < 2021:
+  while j < n + 1:
     if prev_num in prev_num_indices and len(prev_num_indices[prev_num]) == 2:
       prev_num = prev_num_indices[prev_num][1] - prev_num_indices[prev_num][0]
     else:
@@ -51,11 +51,26 @@ def rambunctious_recitation(starting_nums):
     # store prev num
     if prev_num in prev_num_indices:
       if len(prev_num_indices[prev_num]) == 2:
-        prev_num_indices[prev_num].pop(0)
-      prev_num_indices[prev_num].append(j)
+        prev_num_indices[prev_num][0] = prev_num_indices[prev_num][1]
+      prev_num_indices[prev_num][1] = j
     else:
-      prev_num_indices[prev_num] = [j]
+      prev_num_indices[prev_num] = {0: j}
 
     j += 1
 
   return prev_num
+
+
+# --- Part Two ---
+# Impressed, the Elves issue you a challenge: determine the 30000000th number spoken. For example, given the same starting numbers as above:
+
+# Given 0,3,6, the 30000000th number spoken is 175594.
+# Given 1,3,2, the 30000000th number spoken is 2578.
+# Given 2,1,3, the 30000000th number spoken is 3544142.
+# Given 1,2,3, the 30000000th number spoken is 261214.
+# Given 2,3,1, the 30000000th number spoken is 6895259.
+# Given 3,2,1, the 30000000th number spoken is 18.
+# Given 3,1,2, the 30000000th number spoken is 362.
+# Given your starting numbers, what will be the 30000000th number spoken?
+
+# REFER TO rambunctious_recitation FUNCTION
