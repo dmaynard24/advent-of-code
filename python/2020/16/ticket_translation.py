@@ -131,8 +131,8 @@ def ticket_translation_part_2(notes):
   order = set_rule_order(0, rule_order)
   print(order)
 
-  my_ticket = {name: mine[0][order[name]] for name in list(order.keys())}
-  print(my_ticket)
+  # my_ticket = {name: mine[0][order[name]] for name in list(order.keys())}
+  # print(my_ticket)
 
 
 ticket_translation_part_2('''class: 0-1 or 4-19
