@@ -38,11 +38,13 @@
 # Consider the validity of the nearby tickets you scanned. What is your ticket scanning error rate?
 
 
+def create_def(lower_min, lower_max, upper_min, upper_max):
+  return lambda num: (num >= lower_min and num <= lower_max) or (num >= upper_min and num <= upper_max)
+
+
 def ticket_translation(notes):
   rules, _, nearby = [note.split('\n') for note in notes.split('\n\n')]
-
-  def create_def(lower_min, lower_max, upper_min, upper_max):
-    return lambda num: (num >= lower_min and num <= lower_max) or (num >= upper_min and num <= upper_max)
+  nearby = nearby[1:]
 
   rule_defs = []
   for rule in rules:
@@ -56,7 +58,7 @@ def ticket_translation(notes):
     rule_defs.append(create_def(lower_min, lower_max, upper_min, upper_max))
 
   invalid_nums = []
-  for ticket in nearby[1:]:
+  for ticket in nearby:
     nums = [int(num) for num in ticket.split(',')]
     for num in nums:
       is_valid = False
@@ -68,3 +70,79 @@ def ticket_translation(notes):
         invalid_nums.append(num)
 
   return sum(invalid_nums)
+
+
+def ticket_translation_part_2(notes):
+  rules, mine, nearby = [note.split('\n') for note in notes.split('\n\n')]
+  mine = [[int(num) for num in ticket.split(',')] for ticket in mine[1:]]
+  nearby = [[int(num) for num in ticket.split(',')] for ticket in nearby[1:]]
+  all_tickets = mine + nearby
+
+  rule_defs = {}
+  for rule in rules:
+    colon_index = rule.index(': ')
+    rule_name = rule[:colon_index]
+    rule_split = rule[colon_index + 2:].split(' ')
+    first_hyphen_i = rule_split[0].index('-')
+    second_hyphen_i = rule_split[2].index('-')
+    lower_min = int(rule_split[0][:first_hyphen_i])
+    lower_max = int(rule_split[0][first_hyphen_i + 1:])
+    upper_min = int(rule_split[2][:second_hyphen_i])
+    upper_max = int(rule_split[2][second_hyphen_i + 1:])
+    rule_defs[rule_name] = create_def(lower_min, lower_max, upper_min, upper_max)
+
+  print(len(all_tickets))
+
+  # discard invalid tickets
+  i = 0
+  while i < len(all_tickets):
+    for num in all_tickets[i]:
+      is_valid = False
+      for name in rule_defs:
+        if rule_defs[name](num):
+          is_valid = True
+          break
+      if is_valid == False:
+        all_tickets.pop(i)
+        i -= 1
+    i += 1
+
+  print(len(all_tickets))
+
+  rule_order = {name: None for name in rule_defs.keys()}
+
+  def set_rule_order(col, rule_order):
+    if col == len(mine[0]):
+      return rule_order
+    else:
+      for name in rule_order:
+        if rule_order[name] == None:
+          is_valid_name = True
+          for ticket in all_tickets:
+            if rule_defs[name](ticket[col]) == False:
+              is_valid_name = False
+              break
+          if is_valid_name == True:
+            rule_order[name] = col
+            return set_rule_order(col + 1, rule_order)
+          else:
+            rule_order[name] = None
+
+  order = set_rule_order(0, rule_order)
+  print(order)
+
+  my_ticket = {name: mine[0][order[name]] for name in list(order.keys())}
+  print(my_ticket)
+
+
+ticket_translation_part_2('''class: 0-1 or 4-19
+row: 0-5 or 8-19
+seat: 0-13 or 16-19
+
+your ticket:
+11,12,13
+
+nearby tickets:
+3,9,18
+15,1,5
+5,14,9''')
