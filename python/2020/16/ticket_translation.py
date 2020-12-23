@@ -72,6 +72,9 @@ def ticket_translation(notes):
   return sum(invalid_nums)
 
 
+# TODO: part 2
+
+
 def ticket_translation_part_2(notes):
   rules, mine, nearby = [note.split('\n') for note in notes.split('\n\n')]
   mine = [[int(num) for num in ticket.split(',')] for ticket in mine[1:]]
@@ -91,8 +94,6 @@ def ticket_translation_part_2(notes):
     upper_max = int(rule_split[2][second_hyphen_i + 1:])
     rule_defs[rule_name] = create_def(lower_min, lower_max, upper_min, upper_max)
 
-  print(len(all_tickets))
-
   # discard invalid tickets
   i = 0
   while i < len(all_tickets):
@@ -107,35 +108,34 @@ def ticket_translation_part_2(notes):
         i -= 1
     i += 1
 
-  print(len(all_tickets))
-
-  rule_order = {name: None for name in rule_defs.keys()}
+  rule_names = list(rule_defs.keys())
 
   def set_rule_order(col, rule_order):
     if col == len(mine[0]):
       return rule_order
-    else:
-      for name in rule_order:
-        if rule_order[name] == None:
-          is_valid_name = True
-          for ticket in all_tickets:
-            if rule_defs[name](ticket[col]) == False:
-              is_valid_name = False
-              break
-          if is_valid_name == True:
-            rule_order[name] = col
-            return set_rule_order(col + 1, rule_order)
-          else:
-            rule_order[name] = None
 
-  order = set_rule_order(0, rule_order)
-  print(order)
+    order = None
+    for name in rule_names:
+      if name not in rule_order:
+        is_valid_name = True
+        for ticket in all_tickets:
+          if rule_defs[name](ticket[col]) == False:
+            is_valid_name = False
+            break
+        if is_valid_name == True:
+          new_order = {name: col}
+          order = set_rule_order(col + 1, {**rule_order, **new_order})
+    return order
 
-  # my_ticket = {name: mine[0][order[name]] for name in list(order.keys())}
-  # print(my_ticket)
+  order = set_rule_order(0, {})
+
+  if order is not None:
+    my_ticket = {name: mine[0][order[name]] for name in list(order.keys())}
+    return my_ticket
 
 
-ticket_translation_part_2('''class: 0-1 or 4-19
+print(
+    ticket_translation_part_2('''class: 0-1 or 4-19
 row: 0-5 or 8-19
 seat: 0-13 or 16-19
 
@@ -145,4 +145,4 @@ your ticket:
 nearby tickets:
 3,9,18
 15,1,5
-5,14,9''')
+5,14,9'''))
