@@ -1,5 +1,11 @@
 def conway_cubes(initial):
-  grid = {0: initial.split('\n')}
+  def get_expanded_grid(grid):
+    for z in grid:
+      top_row = [['.'] * (len(grid[z][0]) + 2)]
+      bottom_row = [['.'] * (len(grid[z][0]) + 2)]
+      expanded_z = top_row + [['.'] + row + ['.'] for row in grid[z]] + bottom_row
+      grid[z] = expanded_z
+    return grid
 
   def pretty_print():
     for z in grid:
@@ -31,8 +37,12 @@ def conway_cubes(initial):
     above_plane_count = get_2d_adjacent_active_cube_count(row, col, z + 1)
     return below_plane_count + current_plane_count + above_plane_count
 
+  initial = [list(row) for row in initial.split('\n')]
+  grid = {0: initial}
+
   i = 1
   while i <= 1:
+    grid = get_expanded_grid(grid)
     row_count = len(grid[0])
     col_count = len(grid[0][0])
 
@@ -47,7 +57,7 @@ def conway_cubes(initial):
         for col in range(col_count):
           count = get_adjacent_active_cube_count(row, col, z)
           cube_val = grid[z][row][col]
-          print(row, col, cube_val, count)
+          # print(row, col, cube_val, count)
           if cube_val == '#':
             if count == 2 or count == 3:
               new_cubes[row][col] = '#'
