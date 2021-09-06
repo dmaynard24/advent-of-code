@@ -10,16 +10,5 @@
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": ["--style", "{indent_width: 2, column_limit: 120}"],
-  "vscode_custom_css.imports": ["file:///c:/repos/advent-of-code/css/synthwave-x-fluoromachine-0.0.12.css", "file:///c:/repos/advent-of-code/css/theme-overrides.css"],
-  "workbench.colorCustomizations": {
-    "scrollbarSlider.background": "#9963ff16",
-    "scrollbarSlider.hoverBackground": "#9963ff16",
-    "scrollbarSlider.activeBackground": "#9963ff33",
-    "list.focusBackground": "#9963ff16",
-    "settings.dropdownBackground": "#9963ff16",
-    "settings.checkboxBackground": "#9963ff16",
-    "settings.textInputBackground": "#9963ff16",
-    "settings.numberInputBackground": "#9963ff16"
-  }
+  "python.formatting.yapfArgs": ["--style", "{indent_width: 2, column_limit: 120}"]
 }
